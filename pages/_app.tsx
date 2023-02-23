@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               <Link href="/about">About</Link>
             </li>
             <li>
-              <Link href="/users">Users</Link>
+              <Link href="/products">Products</Link>
             </li>
             <li>
               <Link href="/contact">Contact</Link>
@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </ul>
         </nav>
       </header>
-      <main>
+      <main className="container">
         <Component {...pageProps} />
       </main>
     </>

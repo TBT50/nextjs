@@ -24,3 +24,22 @@ a {
     background: black;
   }
 }
+
+img {
+  max-width: 100%;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  list-style-type: none;
+  padding: 0;
+  grid-gap: 30px;
+}
