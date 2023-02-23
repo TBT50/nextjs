@@ -1,10 +1,21 @@
-import Link from "next/link";
+import { GetStaticProps } from "next";
 
-const UsersPage = () => (
-  <div>
-    <h1>USERS PAGE</h1>
-    <Link href="/about">Go to about</Link>
-  </div>
-);
+const UsersPage = ({ users }: any) => {
+  return (
+    <ul>
+      {users.map((user) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  const users = await res.json();
+  return {
+    props: { users },
+  };
+};
 
 export default UsersPage;
