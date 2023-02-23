@@ -3,7 +3,7 @@ import { GetStaticProps } from "next";
 const UsersPage = ({ users }: any) => {
   return (
     <ul>
-      {users.map((user) => (
+      {users.map((user: any) => (
         <li key={user.id}>{user.name}</li>
       ))}
     </ul>
