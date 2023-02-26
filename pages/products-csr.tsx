@@ -41,6 +41,7 @@ const ProductsCSRPage = () => {
         <ProductListItem
           key={product.id}
           data={{
+            id: product.id,
             title: product.title,
             thumbnailUrl: product.image,
             thumbnailAlt: product.title,
