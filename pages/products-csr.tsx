@@ -1,22 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Product } from "../components/Product";
+import { ProductListItem } from "../components/Product";
 
 interface StoreApiResponse {
   id: number;
   title: string;
   price: number;
   description: string;
-  images: string[];
-  category: {
-    id: number;
-    name: string;
-    image: string;
+  category: string;
+  image: string;
+  rating: {
+    rate: number;
+    count: number;
   };
 }
 
 const fetchProducts = async () => {
-  const response = await axios.get("https://api.escuelajs.co/api/v1/products");
+  const response = await axios.get("https://fakestoreapi.com/products");
   const data: StoreApiResponse[] = await response.data;
   return data;
 };
@@ -38,14 +38,12 @@ const ProductsCSRPage = () => {
   return (
     <ul className="products">
       {data.map((product) => (
-        <Product
+        <ProductListItem
           key={product.id}
           data={{
             title: product.title,
-            price: product.price,
-            description: product.description,
-            images: product.images,
-            category: product.category,
+            thumbnailUrl: product.image,
+            thumbnailAlt: product.title,
           }}
         />
       ))}

@@ -1,27 +1,47 @@
-interface ProductProps {
-  data: {
-    title: string;
-    price: number;
-    description: string;
-    images: string[];
-    category: {
-      id: number;
-      name: string;
-      image: string;
-    };
-  };
+import Link from "next/link";
+
+export interface ProductDetails {
+  id: number;
+  title: string;
+  description: string;
+  thumbnailUrl: string;
+  thumbnailAlt: string;
+  rating: number;
 }
 
-export const Product = ({ data }: ProductProps) => {
+interface ProductProps {
+  data: ProductDetails;
+}
+
+export const ProductDetails = ({ data }: ProductProps) => {
   return (
     <li>
       <article>
         <h2>{data.title}</h2>
-        <img src={data.images[0]} alt="" loading="lazy" />
-        <p>
-          Price: <strong>{data.price}</strong>
-        </p>
+        <img src={data.thumbnailUrl} alt={data.thumbnailAlt} loading="lazy" />
         <p>{data.description}</p>
+      </article>
+    </li>
+  );
+};
+
+type ProductListItem = Pick<
+  ProductDetails,
+  "id" | "title" | "thumbnailUrl" | "thumbnailAlt"
+>;
+
+interface ProductListItemProps {
+  data: ProductListItem;
+}
+
+export const ProductListItem = ({ data }: ProductListItemProps) => {
+  return (
+    <li>
+      <article>
+        <Link href={`/products/${data.id}`}>
+          <h2>{data.title}</h2>
+          <img src={data.thumbnailUrl} alt={data.thumbnailAlt} loading="lazy" />
+        </Link>
       </article>
     </li>
   );

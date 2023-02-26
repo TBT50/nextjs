@@ -1,5 +1,18 @@
 import { InferGetStaticPropsType } from "next";
-import { Product } from "../components/Product";
+import { ProductListItem } from "../components/Product";
+
+interface StoreApiResponse {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
+}
 
 const ProductsPage = ({
   products,
@@ -7,14 +20,13 @@ const ProductsPage = ({
   return (
     <ul className="products">
       {products.map((product) => (
-        <Product
+        <ProductListItem
           key={product.id}
           data={{
+            id: product.id,
             title: product.title,
-            price: product.price,
-            description: product.description,
-            images: product.images,
-            category: product.category,
+            thumbnailUrl: product.image,
+            thumbnailAlt: product.title,
           }}
         />
       ))}
@@ -25,7 +37,7 @@ const ProductsPage = ({
 export default ProductsPage;
 
 export const getStaticProps = async () => {
-  const res = await fetch(`https://api.escuelajs.co/api/v1/products`);
+  const res = await fetch(`https://fakestoreapi.com/products`);
   const products: StoreApiResponse[] = await res.json();
 
   return {
@@ -34,29 +46,3 @@ export const getStaticProps = async () => {
     },
   };
 };
-
-// export interface StoreApiResponse {
-//   id: number;
-//   title: string;
-//   price: number;
-//   description: string;
-//   category: string;
-//   image: string;
-//   rating: {
-//     rate: number;
-//     count: number;
-//   };
-// }
-
-export interface StoreApiResponse {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  images: string[];
-  category: {
-    id: number;
-    name: string;
-    image: string;
-  };
-}
