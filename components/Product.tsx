@@ -1,16 +1,20 @@
 import Link from "next/link";
+import Image from "next/image";
+import { ReactMarkdownContent } from "./ReactMarkdownContent";
+import { MarkdownResult } from "../utils";
 
-export interface ProductDetails {
+export interface Product {
   id: number;
   title: string;
   description: string;
   thumbnailUrl: string;
   thumbnailAlt: string;
   rating: number;
+  longDescription: MarkdownResult;
 }
 
 interface ProductProps {
-  data: ProductDetails;
+  data: Product;
 }
 
 export const ProductDetails = ({ data }: ProductProps) => {
@@ -18,15 +22,18 @@ export const ProductDetails = ({ data }: ProductProps) => {
     <li>
       <article>
         <h2>{data.title}</h2>
-        <img src={data.thumbnailUrl} alt={data.thumbnailAlt} loading="lazy" />
+        <img src={data.thumbnailUrl} alt={data.thumbnailAlt} />
         <p>{data.description}</p>
+        <div className="prose lg:prose-xl">
+          <ReactMarkdownContent>{data.longDescription}</ReactMarkdownContent>
+        </div>
       </article>
     </li>
   );
 };
 
 type ProductListItem = Pick<
-  ProductDetails,
+  Product,
   "id" | "title" | "thumbnailUrl" | "thumbnailAlt"
 >;
 
@@ -39,8 +46,14 @@ export const ProductListItem = ({ data }: ProductListItemProps) => {
     <li>
       <article>
         <Link href={`/products/${data.id}`}>
+          <Image
+            src={data.thumbnailUrl}
+            alt={data.thumbnailAlt}
+            loading="lazy"
+            width={300}
+            height={400}
+          />
           <h2>{data.title}</h2>
-          <img src={data.thumbnailUrl} alt={data.thumbnailAlt} loading="lazy" />
         </Link>
       </article>
     </li>

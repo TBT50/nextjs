@@ -16,7 +16,9 @@ interface StoreApiResponse {
 }
 
 const fetchProducts = async () => {
-  const response = await axios.get("https://fakestoreapi.com/products");
+  const response = await axios.get(
+    "https://naszsklep-api.vercel.app/api/products"
+  );
   const data: StoreApiResponse[] = await response.data;
   return data;
 };
